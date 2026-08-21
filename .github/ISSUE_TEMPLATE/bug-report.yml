@@ -1,0 +1,37 @@
+name: Bug report
+description: Report a problem with the theme.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the problem and where it appears in SnappyMail.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: SnappyMail version
+    validations:
+      required: true
+  - type: dropdown
+    id: color-scheme
+    attributes:
+      label: Color scheme
+      options:
+        - Light
+        - Dark
+        - Both
+    validations:
+      required: true
+  - type: textarea
+    id: browser
+    attributes:
+      label: Browser and user-style setup
+      description: Include the browser name and how the stylesheet is installed.
+    validations:
+      required: true
+

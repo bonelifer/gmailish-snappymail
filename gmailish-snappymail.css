@@ -1,0 +1,885 @@
+/* ==UserStyle==
+@name           Gmailish
+@namespace      github.com/openstyles/stylus
+@version        1.0.0
+@description    Gmail-inspired SnappyMail theme with adaptive light/dark colors and a compact folder list.
+@author         Me
+==/UserStyle== */
+
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600&family=Roboto:wght@400;500;600&display=swap');
+
+/**
+ * @file gmailish-snappymail.css
+ * @description Gmailish: a Gmail-inspired SnappyMail theme with adaptive light/dark styling.
+ * @purpose To override default SnappyMail styles with a modern, professional Google Material Design aesthetic.
+ * @usage Apply this CSS to the SnappyMail custom CSS configuration file or inject it via a user styles extension.
+ * @inputs None (Static CSS stylesheet)
+ * @outputs Restyled SnappyMail DOM elements
+ */
+
+:root {
+    color-scheme: light dark;
+
+    /* Gmail Color Palette */
+    --google-blue: light-dark(#4285f4, #8ab4f8);
+    --google-red: light-dark(#ea4335, #f28b82);
+    --google-yellow: light-dark(#fbbc04, #fdd663);
+    --google-green: light-dark(#34a853, #81c995);
+    --dark-red: light-dark(#c5221f, #f28b82);
+
+    /* Background & Surface */
+    --bg-primary: light-dark(#ffffff, #202124);
+    --bg-secondary: light-dark(#f6f8fc, #171717);
+    --bg-hover: light-dark(#f1f3f4, #303134);
+    --bg-active: light-dark(#e8f0fe, #394457);
+
+    /* Text Colors */
+    --text-primary: light-dark(#202124, #e8eaed);
+    --text-secondary: light-dark(#5f6368, #bdc1c6);
+    --text-hint: #9aa0a6;
+    --text-link: light-dark(#1967d2, #8ab4f8);
+
+    /* UI Elements */
+    --border-color: light-dark(#dadce0, #5f6368);
+    --shadow-subtle: light-dark(
+        0 1px 2px rgba(60, 64, 67, 0.3),
+        0 1px 2px rgba(0, 0, 0, 0.65)
+    );
+    --shadow-medium: light-dark(
+        0 1px 3px rgba(60, 64, 67, 0.3) 0 1px 2px rgba(60, 64, 67, 0.18),
+        0 1px 3px rgba(0, 0, 0, 0.65) 0 1px 2px rgba(0, 0, 0, 0.45)
+    );
+    --shadow-elevation: light-dark(
+        0 4px 8px rgba(60, 64, 67, 0.3),
+        0 4px 8px rgba(0, 0, 0, 0.7)
+    );
+
+    /* Spacing & Borders */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --sidebar-width: 256px;
+
+    /* Compose Button */
+    --compose-bg: #c5221f;
+    --compose-text: #ffffff;
+    --compose-hover: light-dark(#b31412, #d93025);
+
+    /* Status Colors */
+    --focus-ring: light-dark(
+        rgba(66, 133, 244, 0.2),
+        rgba(138, 180, 248, 0.3)
+    );
+    --warning-bg: light-dark(#fef7e0, #3c2f05);
+    --warning-text: light-dark(#ea8600, #fdd663);
+    --danger-bg: light-dark(#fce8e6, #3c1f1d);
+    --success-bg: light-dark(#e6f4ea, #1e3a2a);
+}
+
+/* =========================================
+   GLOBAL RESET & BASE
+   ========================================= */
+
+body {
+    background-color: var(--bg-secondary) !important;
+    font-family: 'Google Sans', 'Roboto', 'Helvetica Neue', Arial, sans-serif !important;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* =========================================
+   APP CONTAINER
+   ========================================= */
+
+#rl-app {
+    background-color: var(--bg-secondary) !important;
+    background-image: none !important;
+    min-height: 100vh;
+}
+
+/* =========================================
+   LEFT SIDEBAR
+   ========================================= */
+
+#rl-left {
+    width: var(--sidebar-width) !important;
+    background-color: var(--bg-primary) !important;
+    box-shadow: none !important;
+    padding: 16px 8px !important;
+    border-right: 1px solid var(--border-color) !important;
+}
+
+.b-folders {
+    padding: 0 !important;
+}
+
+.b-folders-system {
+    margin-top: 8px !important;
+}
+
+.b-folders li a {
+    display: flex !important;
+    align-items: center !important;
+    padding: 10px 24px !important;
+    margin: 0 8px !important;
+    border-radius: var(--radius-md) !important;
+    color: var(--text-secondary) !important;
+    font-weight: 500 !important;
+    font-family: 'Google Sans', 'Roboto', Arial, sans-serif !important;
+    transition: background-color 0.2s !important;
+    cursor: pointer !important;
+}
+
+.b-folders li a:hover {
+    background-color: var(--bg-hover) !important;
+    color: var(--text-primary) !important;
+}
+
+.b-folders li a.active,
+.b-folders li a.selected {
+    background-color: var(--bg-active) !important;
+    color: var(--google-blue) !important;
+    font-weight: 600 !important;
+}
+
+.b-folders li a .fontastic {
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 16px !important;
+    font-size: 18px !important;
+    color: var(--text-secondary) !important;
+}
+
+.b-folders li a:hover .fontastic {
+    color: var(--text-primary) !important;
+}
+
+.b-folders li a.active .fontastic,
+.b-folders li a.selected .fontastic {
+    color: var(--google-blue) !important;
+}
+
+/* Unread Count Badge */
+.b-folders li a .unread-count {
+    margin-left: auto !important;
+    font-weight: 600 !important;
+    color: var(--text-secondary) !important;
+}
+
+.b-folders li a.active .unread-count {
+    color: var(--google-blue) !important;
+}
+
+/* =========================================
+   COMPOSE BUTTON
+   ========================================= */
+
+/* Keep Compose and Contacts on the same row in the folder sidebar. */
+#V-MailFolderList .b-folders > .b-toolbar {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding: 0 8px !important;
+}
+
+.btn.buttonCompose {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 8px 8px 24px 8px !important;
+    padding: 12px 24px !important;
+    height: auto !important;
+    background-color: var(--compose-bg) !important;
+    color: var(--compose-text) !important;
+    border: none !important;
+    border-radius: 16px !important;
+    box-shadow: var(--shadow-subtle) !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    letter-spacing: 0.25px !important;
+    transition: all 0.2s !important;
+}
+
+.btn.buttonCompose:hover {
+    background-color: var(--compose-hover) !important;
+    box-shadow: var(--shadow-medium) !important;
+}
+
+/* Let the sidebar Compose button use the available toolbar width. */
+#V-MailFolderList .btn.buttonCompose {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin: 8px 0 24px !important;
+}
+
+/* Hide only the sidebar Compose paper-airplane icon. */
+#V-MailFolderList .btn.buttonCompose > .icon-paper-plane {
+    display: none !important;
+}
+
+/* Remove any spacing that belonged to the hidden icon. */
+#V-MailFolderList .buttonComposeText {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+/* Keep Contacts directly beside Compose. */
+#V-MailFolderList .btn.buttonContacts {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 0 0 auto !important;
+    margin: 8px 0 24px !important;
+}
+
+/* =========================================
+   TOP TOOLBAR / SEARCH
+   ========================================= */
+
+.thm-message-list-top-toolbar {
+    background-color: var(--bg-primary) !important;
+    background-image: none !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    padding: 12px 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+}
+
+.search-container input[type="text"] {
+    background-color: var(--bg-hover) !important;
+    border: none !important;
+    border-radius: 24px !important;
+    padding: 10px 48px 10px 24px !important;
+    width: 100% !important;
+    max-width: 600px !important;
+    font-size: 16px !important;
+    transition: background-color 0.2s, box-shadow 0.2s !important;
+}
+
+.search-container input[type="text"]:focus {
+    background-color: var(--bg-primary) !important;
+    box-shadow: var(--shadow-medium) !important;
+    outline: none !important;
+}
+
+/* Top App Bar */
+#rl-app-header {
+    height: 64px !important;
+    background-color: var(--bg-primary) !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0 16px !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
+}
+
+.logo-container {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    padding-right: 24px !important;
+}
+
+.menu-toggle {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s !important;
+}
+
+.menu-toggle:hover {
+    background-color: var(--bg-hover) !important;
+}
+
+.app-title {
+    color: var(--text-secondary) !important;
+    font-size: 22px !important;
+    font-weight: 400 !important;
+}
+
+/* =========================================
+   EMAIL LIST VIEW
+   ========================================= */
+
+.messageList {
+    background-color: var(--bg-primary) !important;
+    border-radius: var(--radius-md) !important;
+    margin: 16px !important;
+    overflow: hidden !important;
+    box-shadow: var(--shadow-subtle) !important;
+}
+
+.messageListItem {
+    display: flex !important;
+    align-items: center !important;
+    padding: 12px 16px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    cursor: pointer !important;
+    transition: background-color 0.15s !important;
+    font-size: 14px !important;
+}
+
+.messageListItem:last-child {
+    border-bottom: none !important;
+}
+
+.messageListItem:hover {
+    background-color: var(--bg-hover) !important;
+}
+
+.messageListItem.unread {
+    background-color: var(--bg-primary) !important;
+    font-weight: 600 !important;
+}
+
+.messageListItem.unread .subjectParent {
+    color: var(--text-primary) !important;
+}
+
+.messageListItem.read {
+    background-color: var(--bg-primary) !important;
+}
+
+.messageListItem.read .subjectParent {
+    color: var(--text-secondary) !important;
+}
+
+/* Highlight borders for starred/priority emails */
+.messageListItem.starred {
+    border-left: 4px solid var(--google-yellow) !important;
+}
+
+.messageListItem.priority {
+    border-left: 4px solid var(--google-red) !important;
+}
+
+.messageListItem.selected {
+    border-left: 4px solid var(--google-blue) !important;
+}
+
+/* Email Row Elements */
+.senderParent {
+    width: 200px !important;
+    flex-shrink: 0 !important;
+    color: var(--text-primary) !important;
+    font-weight: 500 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.subjectParent {
+    flex: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    overflow: hidden !important;
+    margin: 0 16px !important;
+}
+
+.subject {
+    color: var(--text-secondary) !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.snippet {
+    color: var(--text-hint) !important;
+    font-size: 13px !important;
+}
+
+.timeParent {
+    width: 80px !important;
+    text-align: right !important;
+    font-weight: 500 !important;
+    color: var(--text-secondary) !important;
+    flex-shrink: 0 !important;
+}
+
+/* Folder-list Unseen checkbox.
+   Keep the checkbox and label on one line with a small gap. */
+#V-MailFolderList .b-content > .e-checkbox[data-bind*="filterUnseen"] {
+    display: inline-flex !important;
+    flex-flow: row nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    width: auto !important;
+    min-width: max-content !important;
+    height: auto !important;
+    margin: 0 0 8px 32px !important;
+    padding: 0 !important;
+    white-space: nowrap !important;
+}
+
+#V-MailFolderList .b-content > .e-checkbox[data-bind*="filterUnseen"] > i {
+    display: inline-block !important;
+    position: static !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+    line-height: 1 !important;
+}
+
+#V-MailFolderList .b-content > .e-checkbox[data-bind*="filterUnseen"] > span {
+    display: inline-block !important;
+    position: static !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    float: none !important;
+    clear: none !important;
+    white-space: nowrap !important;
+    line-height: 1 !important;
+}
+
+/* Avatar */
+.fromPic {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    margin-right: 16px !important;
+    background-color: var(--google-blue) !important;
+    color: white !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}
+
+/* Icons */
+.flagParent .fontastic {
+    color: var(--text-hint) !important;
+    font-size: 18px !important;
+    transition: color 0.2s !important;
+}
+
+.flagParent .flagged {
+    color: var(--google-yellow) !important;
+}
+
+/* =========================================
+   EMAIL PREVIEW PANE
+   ========================================= */
+
+.b-content.messageView {
+    background-color: var(--bg-primary) !important;
+    border-radius: var(--radius-md) !important;
+    margin: 16px !important;
+    padding: 24px !important;
+    box-shadow: var(--shadow-subtle) !important;
+}
+
+.messageItemHeader {
+    padding-bottom: 24px !important;
+    border-bottom: 1px solid var(--border-color) !important;
+    margin-bottom: 24px !important;
+}
+
+.email-subject-large {
+    font-size: 22px !important;
+    font-weight: 400 !important;
+    color: var(--text-primary) !important;
+    margin-bottom: 16px !important;
+}
+
+.email-meta {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+}
+
+.email-sender {
+    font-weight: 500 !important;
+    color: var(--text-primary) !important;
+}
+
+.email-date {
+    color: var(--text-secondary) !important;
+    font-size: 13px !important;
+}
+
+.email-recipients {
+    color: var(--text-secondary) !important;
+    font-size: 14px !important;
+    margin-top: 4px !important;
+}
+
+/* Email Body */
+.b-view-content {
+    color: var(--text-primary) !important;
+    line-height: 1.6 !important;
+}
+
+.b-view-content img {
+    max-width: 100% !important;
+    border-radius: var(--radius-sm) !important;
+}
+
+/* =========================================
+   ACTION BAR / TOOLBAR
+   ========================================= */
+
+.messageItemHeader .toolbar {
+    display: flex !important;
+    gap: 4px !important;
+    padding: 8px 0 !important;
+}
+
+.toolbar .btn {
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    color: var(--text-secondary) !important;
+    font-size: 14px !important;
+    transition: all 0.2s !important;
+    min-height: 36px !important;
+}
+
+.toolbar .btn:hover {
+    background-color: var(--bg-hover) !important;
+    color: var(--text-primary) !important;
+}
+
+.toolbar .btn-primary {
+    color: var(--google-blue) !important;
+    font-weight: 500 !important;
+}
+
+.squire-toolbar.btn-toolbar {
+    padding: 8px 16px !important;
+    background-color: var(--bg-secondary) !important;
+    border-radius: var(--radius-md) !important;
+    margin-bottom: 16px !important;
+}
+
+/* =========================================
+   SETTINGS PANEL
+   ========================================= */
+
+#V-SettingsPane {
+    background-color: var(--bg-primary) !important;
+    border-radius: var(--radius-md) !important;
+    margin: 16px !important;
+    box-shadow: var(--shadow-subtle) !important;
+}
+
+#V-SettingsMenu {
+    background-color: var(--bg-primary) !important;
+}
+
+#V-SettingsMenu nav a {
+    padding: 12px 24px !important;
+    color: var(--text-secondary) !important;
+    font-weight: 500 !important;
+    border-left: 3px solid transparent !important;
+    transition: all 0.2s !important;
+}
+
+#V-SettingsMenu nav a:hover {
+    background-color: var(--bg-hover) !important;
+    color: var(--text-primary) !important;
+}
+
+#V-SettingsMenu nav a.active {
+    background-color: var(--bg-active) !important;
+    color: var(--google-blue) !important;
+    border-left-color: var(--google-blue) !important;
+}
+
+/* =========================================
+   BUTTONS
+   ========================================= */
+
+.btn {
+    border: none !important;
+    border-radius: 4px !important;
+    padding: 8px 16px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    font-family: 'Google Sans', 'Roboto', Arial, sans-serif !important;
+}
+
+.btn-default {
+    background-color: transparent !important;
+    color: var(--text-secondary) !important;
+}
+
+.btn-default:hover {
+    background-color: var(--bg-hover) !important;
+    color: var(--text-primary) !important;
+}
+
+.btn-primary {
+    background-color: var(--google-blue) !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: light-dark(#3367d6, #669df6) !important;
+    box-shadow: var(--shadow-medium) !important;
+}
+
+.btn-danger {
+    background-color: var(--google-red) !important;
+    color: white !important;
+}
+
+.btn-danger:hover {
+    background-color: var(--dark-red) !important;
+}
+
+/* =========================================
+   DROPDOWN MENUS
+   ========================================= */
+
+.dropdown-menu {
+    background-color: var(--bg-primary) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-elevation) !important;
+    padding: 8px 0 !important;
+    min-width: 200px !important;
+}
+
+.dropdown-menu li a {
+    padding: 10px 24px !important;
+    color: var(--text-primary) !important;
+    font-size: 14px !important;
+    transition: background-color 0.2s !important;
+}
+
+.dropdown-menu li a:hover {
+    background-color: var(--bg-hover) !important;
+    color: var(--text-primary) !important;
+}
+
+.dropdown-menu li a.disabled {
+    color: var(--text-hint) !important;
+    cursor: not-allowed !important;
+}
+
+/* =========================================
+   LOGIN SCREEN
+   ========================================= */
+
+#V-Login,
+#V-AdminLogin {
+    background-color: var(--bg-primary) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: var(--shadow-elevation) !important;
+    padding: 48px !important;
+    max-width: 450px !important;
+    margin: 100px auto !important;
+}
+
+.LoginView .descWrapper {
+    text-align: center !important;
+    margin-bottom: 32px !important;
+    padding-left: 0 !important;
+}
+
+.LoginView h1 {
+    font-size: 24px !important;
+    font-weight: 400 !important;
+    color: var(--text-primary) !important;
+    margin-bottom: 8px !important;
+}
+
+.LoginView p {
+    color: var(--text-secondary) !important;
+    font-size: 16px !important;
+}
+
+.LoginView input[type="email"],
+.LoginView input[type="password"] {
+    width: 100% !important;
+    padding: 13px 15px !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 4px !important;
+    font-size: 16px !important;
+    margin-bottom: 16px !important;
+    transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+
+.LoginView input:focus {
+    border-color: var(--google-blue) !important;
+    box-shadow: 0 0 0 2px var(--focus-ring) !important;
+    outline: none !important;
+}
+
+.LoginView .btn-primary {
+    width: 100% !important;
+    padding: 10px 24px !important;
+    height: 48px !important;
+    font-size: 14px !important;
+}
+
+/* =========================================
+   BADGES & TAGS
+   ========================================= */
+
+.badge {
+    display: inline-block !important;
+    padding: 4px 8px !important;
+    border-radius: 16px !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+}
+
+.badge-primary {
+    background-color: var(--bg-active) !important;
+    color: var(--google-blue) !important;
+}
+
+.badge-warning {
+    background-color: var(--warning-bg) !important;
+    color: var(--warning-text) !important;
+}
+
+.badge-danger {
+    background-color: var(--danger-bg) !important;
+    color: var(--google-red) !important;
+}
+
+.badge-success {
+    background-color: var(--success-bg) !important;
+    color: var(--google-green) !important;
+}
+
+/* =========================================
+   SCROLLBAR (Chrome/Safari)
+   ========================================= */
+
+::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--border-color) !important;
+    border-radius: 4px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-hint) !important;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+
+@media screen and (max-width: 1024px) {
+    #rl-left {
+        width: 200px !important;
+    }
+    
+    .senderParent {
+        width: 150px !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #rl-left {
+        position: fixed !important;
+        left: -256px !important;
+        top: 0 !important;
+        height: 100vh !important;
+        z-index: 200 !important;
+        transition: left 0.3s ease !important;
+    }
+    
+    #rl-left.open {
+        left: 0 !important;
+        box-shadow: var(--shadow-elevation) !important;
+    }
+    
+    .senderParent {
+        width: 120px !important;
+    }
+    
+    .messageList,
+    .b-content.messageView {
+        margin: 8px !important;
+        border-radius: 0 !important;
+    }
+    
+    #V-Login,
+    #V-AdminLogin {
+        margin: 40px 16px !important;
+        padding: 32px 24px !important;
+    }
+    
+    .LoginView .descWrapper {
+        padding-left: 0 !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .messageListItem {
+        padding: 12px 8px !important;
+    }
+    
+    .senderParent {
+        width: 100px !important;
+    }
+    
+    .subjectParent {
+        margin: 0 8px !important;
+    }
+    
+    .timeParent {
+        width: 60px !important;
+    }
+}
+
+
+/* =========================================
+   COMPACT FOLDER SPACING
+   ========================================= */
+
+/* Make folder rows denser without changing the Archive-to-Unseen gap. */
+#V-MailFolderList .b-folders-system > li,
+#V-MailFolderList .b-folders-user > li {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#V-MailFolderList .b-folders-system > li > a,
+#V-MailFolderList .b-folders-user > li > a {
+    display: block !important;
+    min-height: 32px !important;
+    margin: 0 8px !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    line-height: 24px !important;
+}
+
+/* Preserve the existing spacing between Archive and Unseen. */
+#V-MailFolderList .b-folders-system + hr {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+}
